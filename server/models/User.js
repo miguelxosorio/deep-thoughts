@@ -14,6 +14,7 @@ const userSchema = new Schema(
       required: true,
       unique: true,
       match: [/.+@.+\..+/, 'Must match an email address!']
+      // <string>@<string>.<string>
     },
     password: {
       type: String,
@@ -41,7 +42,9 @@ const userSchema = new Schema(
 );
 
 // set up pre-save middleware to create password
+// hashing password with Mongoose
 userSchema.pre('save', async function(next) {
+  // check to see if the data is new or if the password has been modified
   if (this.isNew || this.isModified('password')) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
