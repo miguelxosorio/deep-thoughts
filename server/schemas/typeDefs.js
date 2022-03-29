@@ -10,8 +10,25 @@ const { gql } = require('apollo-server-express');
 // create our typeDefs
 // Tagged templates are an advanced use of template literals
 const typeDefs = gql`
+
+  type Thought {
+    _id: ID
+    thoughtText: String
+    createdAt: String
+    username: String
+    reactionCount: Int
+    reactions: [Reaction]
+  }
+
+  type Reaction {
+      _id: ID
+      reactionBody: String
+      createdAt: String
+      username: String
+  }
+
   type Query {
-    helloWorld: String
+    thoughts(username: String): [Thought]
   }
 `;
 
