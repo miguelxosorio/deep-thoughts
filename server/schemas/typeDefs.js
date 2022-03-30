@@ -10,6 +10,14 @@ const { gql } = require('apollo-server-express');
 // create our typeDefs
 // Tagged templates are an advanced use of template literals
 const typeDefs = gql`
+  type User {
+    _id: ID
+    username: String
+    email: String
+    friendCount: Int
+    thoughts: [Thought]
+    friends: [User]
+  }
 
   type Thought {
     _id: ID
@@ -21,26 +29,30 @@ const typeDefs = gql`
   }
 
   type Reaction {
-      _id: ID
-      reactionBody: String
-      createdAt: String
-      username: String
-  }
-
-  type User {
-      _id: ID
-      username: String
-      email: String
-      friendCount: Int
-      thoughts: [Thought]
-      friends: [User]
+    _id: ID
+    reactionBody: String
+    createdAt: String
+    username: String
   }
 
   type Query {
+    me: User
     users: [User]
     user(username: String!): User # data must exist "!"
     thoughts(username: String): [Thought]
     thought(_id: ID!): Thought
+  }
+
+  # login() mutation and an addUser() mutation. Both will return a User object: either the user who successfully logged in or the user who was just created on sign-up
+  type Mutation {
+      login(email: String!, password: String!): Auth
+      addUser(username: String!, email: String!, password: String!): Auth
+  }
+
+  # This means that an Auth type must return a token and can optionally include any other user data.
+  type Auth {
+      token: ID!
+      user: User
   }
 `;
 

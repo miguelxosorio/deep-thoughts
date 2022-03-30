@@ -1,7 +1,11 @@
 const { User, Thought } = require('../models');
+const { AuthenticationError } = require('apollo-server-express');
+const { signToken } = require('../utils/auth');
 
 const resolvers = {
+    // QUERY
   Query: {
+    me: async() => {},
     thoughts: async (parent, { username }) => {
       // use a ternary operator to check if username exists
       //If it does, we set params to an object with a username key set to that value. If it doesn't, we simply return an empty object
@@ -10,24 +14,52 @@ const resolvers = {
       // If there's data, it'll perform a lookup by a specific username. If there's not, it'll simply return every thought
       return Thought.find(params).sort({ createdAt: -1 });
     },
-    // place this inside of the `Query` nested object right after `thoughts` 
+    // place this inside of the `Query` nested object right after `thoughts`
     thought: async (parent, { _id }) => {
-        return Thought.findOne({ _id });
+      return Thought.findOne({ _id });
     },
     // get all users
     users: async () => {
-        return User.find()
+      return User.find()
         .select('-__v -password')
         .populate('friends')
         .populate('thoughts');
     },
     // get a user by username
     user: async (parent, { username }) => {
-        return User.findOne({ username})
+      return User.findOne({ username })
         .select('-__v -password')
         .populate('friends')
         .populate('thoughts');
-    }
+    },
+  },
+
+  // MUTATIONS
+  Mutation: {
+    addUser: async (parent, args) => {
+      // Mongoose User model creates a new user in the database with whatever is passed in as the args
+      const user = await User.create(args);
+      //  sign a token and return an object that combines the token with the user's data
+      const token = signToken(user);
+
+      return { token, user };
+    },
+    login: async (parent, { email, password }) => {
+        
+        const user = await User.findOne({ email });
+
+        if(!user) {
+            throw new AuthenticationError('Incorrect credentials')
+        }
+
+        const correctPw = await user.isCorrectPassword(password);
+
+        if(!correctPw) {
+            throw new AuthenticationError('Incorrect credentials');
+        }
+        const token = signToken(user);
+        return { token, user };
+    },
   },
 };
 
