@@ -47,6 +47,10 @@ const typeDefs = gql`
   type Mutation {
       login(email: String!, password: String!): Auth
       addUser(username: String!, email: String!, password: String!): Auth
+      addThought(thoughtText: String!): Thought
+      #  addReaction() will return the parent Thought instead of the newly created Reaction
+      addReaction(thoughtId: ID!, reactionBody: String!): Thought
+      addFriend(friendId: ID!): User
   }
 
   # This means that an Auth type must return a token and can optionally include any other user data.
