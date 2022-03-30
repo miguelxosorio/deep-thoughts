@@ -5,7 +5,14 @@ const { signToken } = require('../utils/auth');
 const resolvers = {
     // QUERY
   Query: {
-    me: async() => {},
+    me: async(parent, args) => {
+        const userData = await User.findOne({})
+        .select('-__v -password')
+        .populate('thoughts')
+        .populate('friends');
+
+        return userData;
+    },
     thoughts: async (parent, { username }) => {
       // use a ternary operator to check if username exists
       //If it does, we set params to an object with a username key set to that value. If it doesn't, we simply return an empty object
