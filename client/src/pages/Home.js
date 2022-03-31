@@ -3,6 +3,8 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 // imported the QUERY_THOUGHTS 
 import { QUERY_THOUGHTS } from '../utils/queries';
+// thoughtlist
+import Thoughtlist from '../components/Thoughtlist';
 
 const Home = () => {
   // use useQuery hook to make query request
@@ -23,7 +25,15 @@ const Home = () => {
   return (
     <main>
       <div className='flex-row justify-space-between'>
-        <div className='col-12 mb-3'>{/* PRINT THOUGHT LIST */}</div>
+        <div className='col-12 mb-3'>
+        {/* we use a ternary operator to conditionally render the <ThoughtList> component */}
+        {loading ? (
+          <div>Loading...</div>
+        ) : ( 
+          <Thoughtlist thoughts={thoughts} title="Some Feed for Thought(s)..." />
+        )}
+        {/* Once the query is complete and loading is undefined, we pass the thoughts array and a custom title to the <ThoughtList> component as props */}
+        </div>
       </div>
     </main>
   );
