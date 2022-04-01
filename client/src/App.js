@@ -43,6 +43,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
+          {/* updated paths from thoughtlist comp */}
           <Route exact path="/profile/:username?" component={Profile} />
           <Route exact path="/thought/:id" component={SingleThought} />
 
