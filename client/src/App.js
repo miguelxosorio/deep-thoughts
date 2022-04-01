@@ -44,6 +44,7 @@ function App() {
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           {/* updated paths from thoughtlist comp */}
+          {/*  ? means this parameter is optional, so /profile and /profile/myUsername will both render the Profile component */}
           <Route exact path="/profile/:username?" component={Profile} />
           <Route exact path="/thought/:id" component={SingleThought} />
 
