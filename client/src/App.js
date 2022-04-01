@@ -3,6 +3,7 @@ import React from 'react';
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 
 // react-router-dom BrowserRouter(renamed to Router) and Route - components that the React Router library provides
+// Switch would reroute it to display error or page not found when route is non existent
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // Page Components
