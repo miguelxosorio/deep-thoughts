@@ -2,6 +2,16 @@ import React from 'react';
 // Apollo import
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 
+// react-router-dom BrowserRouter(renamed to Router) and Route - components that the React Router library provides
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+// Page Components
+import Login from './pages/Login';
+import NoMatch from './pages/NoMatch';
+import SingleThought from './pages/SingleThought';
+import Profile from './pages/Profile';
+import Signup from './pages/Signup';
+
 import Header from './components/Header';
 import Footer from './components/Footer';
 
