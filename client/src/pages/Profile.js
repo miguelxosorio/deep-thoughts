@@ -6,6 +6,7 @@ import Thoughtlist from '../components/Thoughtlist';
 
 import { useQuery } from '@apollo/client';
 import { QUERY_USER } from '../utils/queries';
+import FriendList from '../components/FriendList';
 
 const Profile = () => {
 
@@ -38,7 +39,14 @@ const Profile = () => {
         {/* PRINT THOUGHT LIST  */}
         <Thoughtlist thoughts={user.thoughts} title={`${user.username}'s thoughts...`} />
         </div>
-        <div className="col-12 col-lg-3 mb-3">{/* PRINT FRIEND LIST */}</div>
+        <div className="col-12 col-lg-3 mb-3">
+        {/* PRINT FRIEND LIST */}
+        <FriendList
+          username={user.username}
+          friendCount={user.friendCount}
+          friends={user.friends}
+          />
+        </div>
       </div>
     </div>
   );
