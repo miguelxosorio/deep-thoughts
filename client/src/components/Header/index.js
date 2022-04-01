@@ -11,6 +11,7 @@ const Header = () => {
         </Link>
 
         <nav className='text-center'>
+        {/* inspect in browser and Link turns to <a> */}
           <Link to="/login">Login</Link>
           <Link to="/signup">Signup</Link>
         </nav>
