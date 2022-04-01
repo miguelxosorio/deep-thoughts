@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+// Auth from utils
+import Auth from '../utils/auth';
 // useMutation
 import { useMutation } from '@apollo/client';
 // ADD_USER from mutation.js
@@ -35,6 +36,10 @@ const Signup = () => {
         variables: { ...formState }
       });
       console.log(data);
+
+      // Now when you sign up successfully, you'll be redirected to the homepage with your token stored in localStorage
+      Auth.login(data.addUser.token);
+
     } catch (e) {
       console.error(e);
     }
