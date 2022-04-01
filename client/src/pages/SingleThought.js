@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 // import QUERY_THOUGHT
 import { QUERY_THOUGHT } from '../utils/queries';
+// import reactionlist
+import ReactionList from '../components/ReactionList';
 
 const SingleThought = props => {
   const { id: thoughtId } = useParams();
@@ -31,12 +33,14 @@ const SingleThought = props => {
           <span style={{ fontWeight: 700 }} className="text-light">
             {thought.username}
           </span>{' '}
-          thought on createdAt
+          thought on {thought.createdAt}
         </p>
         <div className="card-body">
           <p>{thought.thoughtText}</p>
         </div>
       </div>
+      {/* adding the ReactionList component at the bottom, passing in the reactions array as a prop */}
+      {thought.reactionCount > 0 && <ReactionList reactions={thought.reactions} />}
     </div>
   );
 };
