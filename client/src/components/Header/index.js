@@ -36,8 +36,8 @@ const Header = () => {
           </>
         )}
         {/* inspect in browser and Link turns to <a> */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Signup</Link>
+          {/* <Link to="/login">Login</Link>
+          <Link to="/signup">Signup</Link> */}
         </nav>
       </div>
     </header>
