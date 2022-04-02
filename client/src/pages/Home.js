@@ -1,16 +1,21 @@
 import React from 'react';
 // importing the useQuery Hook from Apollo Client
 import { useQuery } from '@apollo/client';
-// imported the QUERY_THOUGHTS 
-import { QUERY_THOUGHTS } from '../utils/queries';
+// imported the QUERY_THOUGHTS, QUERY_BASIC from queries.js 
+import { QUERY_THOUGHTS, QUERY_ME_BASIC } from '../utils/queries';
 // thoughtlist
 import Thoughtlist from '../components/Thoughtlist';
+// Auth
+import Auth from '../utils/auth';
 
 const Home = () => {
   // use useQuery hook to make query request
   //  Apollo's @apollo/client library provides a loading property to indicate that the request isn't done just yet
   // When it's finished and we have data returned from the server, that information is stored in the destructured data property.
   // with the loading property, we'll be able to conditionally render data based on whether or not there is data to even display.
+
+  // Auth - If you're logged in, the loggedIn variable will be true; otherwise, it will be false
+  const loggedIn = Auth.loggedIn();
 
   const { loading, data } = useQuery(QUERY_THOUGHTS);
   //  load the Home component in the application, we'll execute the query for the thought data
