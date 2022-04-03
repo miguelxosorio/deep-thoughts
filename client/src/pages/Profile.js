@@ -5,7 +5,6 @@ import { Redirect, useParams } from 'react-router-dom';
 
 import Thoughtlist from '../components/Thoughtlist';
 import FriendList from '../components/FriendList';
-// thoughtform
 import ThoughtForm from '../components/ThoughtForm';
 
 import { useQuery, useMutation } from '@apollo/client';
