@@ -15,11 +15,26 @@ export const LOGIN_USER = gql`
 `;
 
 // import the gql tagged template literal functionality to create a GraphQL mutation called addUser
+// this mutation was passed to the useMutation Hook in the Signup component
 export const ADD_USER = gql`
   mutation addUser($username: String!, $email: String!, $password: String!) {
     addUser(username: $username, email: $email, password: $password) {
       token
       user {
+        _id
+        username
+      }
+    }
+  }
+`;
+
+export const ADD_FRIEND = gql`
+  mutation addFriend($id: ID!) {
+    addFriend(friendId: $id) {
+      _id
+      username
+      friendCount
+      friends {
         _id
         username
       }
