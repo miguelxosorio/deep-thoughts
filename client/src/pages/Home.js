@@ -7,6 +7,8 @@ import { QUERY_THOUGHTS, QUERY_ME_BASIC } from '../utils/queries';
 import Thoughtlist from '../components/Thoughtlist';
 // friendlist
 import FriendList from '../components/FriendList';
+// thoughtform
+import ThoughtForm from '../components/ThoughtForm';
 // Auth
 import Auth from '../utils/auth';
 
@@ -36,6 +38,11 @@ const Home = () => {
   return (
     <main>
       <div className="flex-row justify-space-between">
+      {loggedIn && (
+        <div className='col-12 mb-3'>
+          <ThoughtForm />
+        </div>
+      )}
         {/* we're conditionally defining the layout for this <div>, if logged in */}
         <div className={`col-12 mb-3 ${loggedIn && 'col-lg-8'}`}>
           {/* we use a ternary operator to conditionally render the <ThoughtList> component */}
