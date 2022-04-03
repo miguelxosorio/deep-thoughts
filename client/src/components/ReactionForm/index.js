@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { useMutation } from '@apollo/client';
 import { ADD_REACTION } from '../../utils/mutations';
 
@@ -8,13 +9,15 @@ const ReactionForm = ({ thoughtId }) => {
 
   const [addReaction, { error }] = useMutation(ADD_REACTION);
 
+  // update state based on form input changes
   const handleChange = event => {
     if (event.target.value.length <= 280) {
       setBody(event.target.value);
       setCharacterCount(event.target.value.length);
     }
   };
-
+  
+  // submit form
   const handleFormSubmit = async event => {
     event.preventDefault();
 
@@ -23,6 +26,7 @@ const ReactionForm = ({ thoughtId }) => {
       await addReaction({
           variables: { reactionBody, thoughtId }
       });
+      // clear form value
       setBody('');
       setCharacterCount(0);
     } catch (e) {
@@ -32,21 +36,22 @@ const ReactionForm = ({ thoughtId }) => {
 
   return (
     <div>
-      <p className="m-0">Character Count: {characterCount}/280</p>
-      <form className="flex-row justify-center justify-space-between-md align-stretch">
+      <p className={`m-0 ${characterCount === 280 ? 'text-error' : ''}`}>
+        Character Count: {characterCount}/280
+        {error && <span className="ml-2">Something went wrong...</span>}</p>
+      <form className="flex-row justify-center justify-space-between-md align-stretch"
+      onSubmit={handleFormSubmit}>
         <textarea
           placeholder="Leave a reaction to this thought..."
-          className="form-input col-12 col-md-9"
-          onSubmit={handleFormSubmit}
-          onChange={handleChange}
           value={reactionBody}
+          className="form-input col-12 col-md-9"
+          onChange={handleChange}
         ></textarea>
 
         <button className="btn col-12 col-md-3" type="submit">
           Submit
         </button>
       </form>
-      {error && <span className="ml-2">Something went wrong...</span>}
     </div>
   );
 };

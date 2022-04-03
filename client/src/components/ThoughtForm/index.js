@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { useMutation } from '@apollo/client';
 import { ADD_THOUGHT } from '../../utils/mutations';
 import { QUERY_THOUGHTS, QUERY_ME } from '../../utils/queries';
@@ -31,13 +32,15 @@ const ThoughtForm = () => {
     },
   });
 
+  // update state based on form input changes
   const handleChange = event => {
-    if (event.target.value.length <= 200) {
+    if (event.target.value.length <= 280) {
       setText(event.target.value);
       setCharacterCount(event.target.value.length);
     }
   };
 
+  // submit form
   const handleFormSubmit = async event => {
     event.preventDefault();
 
@@ -47,6 +50,7 @@ const ThoughtForm = () => {
         variables: { thoughtText },
       });
 
+      // clear form value
       setText('');
       setCharacterCount(0);
     } catch (e) {
