@@ -16,9 +16,6 @@ const Home = () => {
   // When it's finished and we have data returned from the server, that information is stored in the destructured data property.
   // with the loading property, we'll be able to conditionally render data based on whether or not there is data to even display.
 
-  // Auth - If you're logged in, the loggedIn variable will be true; otherwise, it will be false
-  const loggedIn = Auth.loggedIn();
-
   const { loading, data } = useQuery(QUERY_THOUGHTS);
   //  load the Home component in the application, we'll execute the query for the thought data
 
@@ -30,6 +27,9 @@ const Home = () => {
   // Optional chaining negates the need to check if an object even exists before accessing its properties
   const thoughts = data?.thoughts || [];
   console.log(thoughts);
+
+  // Auth - If you're logged in, the loggedIn variable will be true; otherwise, it will be false
+  const loggedIn = Auth.loggedIn();
 
   /* What we're saying is, if data exists, store it in the thoughts constant we just created. If data is undefined, then save an empty array to the thoughts component. */
 
