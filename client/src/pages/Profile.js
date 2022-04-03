@@ -65,9 +65,12 @@ const Profile = () => {
           {/* Viewing <usernames>'s profile. */}
           Viewing {userParam ? `${user.username}'s` : 'your'} profile.
         </h2>
+
+        {userParam && (
         <button className='btn ml-auto' onClick={handleClick}>
           Add Friend
         </button>
+        )}
       </div>
 
       <div className="flex-row justify-space-between mb-3">
